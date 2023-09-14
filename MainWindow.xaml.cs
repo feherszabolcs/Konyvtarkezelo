@@ -50,9 +50,66 @@ namespace Könyvtárak
 
         private void btnCreateMappa_Click(object sender, RoutedEventArgs e)
         {
-            DirectoryInfo directoryInfo = Directory.CreateDirectory($"{path}\\{tbMappa.Text}");
-            MessageBox.Show("Mappa létrehozva", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
-            UpdateListBox();
+            if (!String.IsNullOrWhiteSpace(tbMappa.Text))
+            {
+                if (CheckIfExists(tbMappa.Text))
+                {
+                    try
+                    {
+                        DirectoryInfo directoryInfo = Directory.CreateDirectory($"{path}\\{tbMappa.Text}");
+                        MessageBox.Show("Mappa létrehozva", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
+                        UpdateListBox();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Nem sikerült a mappa létrehozása: " + ex.Message, "Hiba", MessageBoxButton.OK, MessageBoxImage.Error);
+                        throw;
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Nem sikerült a mappa létrehozása: már létezik ", "Hiba", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Nem sikerült a mappa létrehozása: hibás név", "Hiba", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+        private bool CheckIfExists(string name)
+        {
+            if (lboxKönyvtárList.Items.Count != 0 && !Directory.Exists(path + "\\" + name)) return false;
+            return true;
+        }
+
+        private void btnDelete_Click(object sender, RoutedEventArgs e)
+        {
+            FileAttributes fAttr = File.GetAttributes(path + "\\" + lboxKönyvtárList.SelectedItem.ToString());
+
+            if (fAttr.HasFlag(FileAttributes.Directory)) //Flag vizsgálat: Mappa-e?
+            {
+                    try
+                    {
+                        Directory.Delete(path + "\\" + lboxKönyvtárList.SelectedItem.ToString());
+                        UpdateListBox();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Nem sikerült a mappa törlése! " + ex.Message, "Hiba", MessageBoxButton.OK, MessageBoxImage.Error);
+                        throw;
+                    }
+            }
+            else
+            {
+                File.Delete(path + "\\" + lboxKönyvtárList.SelectedItem.ToString());
+            }
+            
+        }
+
+        private void lboxKönyvtárList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (lboxKönyvtárList.SelectedIndex != -1) btnDelete.IsEnabled = true;
         }
     }
-}
+
+    }

@@ -29,10 +29,10 @@
                 <TextBox x:Name="tbMappa"/>
             </DockPanel>
             <Button x:Name="btnCreateMappa" Content="Mappa létrehozása" Margin="5" Padding="5" Click="btnCreateMappa_Click"/>
-            <Button x:Name="btnDelete" Content="Törlés" Margin="5" Padding="5"/>
+            <Button x:Name="btnDelete" Content="Törlés" Margin="5" Padding="5" Click="btnDelete_Click" IsEnabled="False"/>
             <Separator Margin="5"/>
             <Label Content="Könyvtár lista"/>
-            <ListBox Name="lboxKönyvtárList" Margin="5" Height="150"/>
+            <ListBox Name="lboxKönyvtárList" Margin="5" Height="150" SelectionChanged="lboxKönyvtárList_SelectionChanged"/>
             <Button Content="Könytár megnyitása" Name="btnOpenKönyvtár" Margin="5" Padding="5" Click="btnOpenKönyvtár_Click"/>
 
         </StackPanel>
