@@ -26,6 +26,8 @@ namespace Könyvtárak
         public MainWindow()
         {
             InitializeComponent();
+            path = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+            UpdateListBox();
         }
         private void UpdateListBox()
         {
@@ -102,6 +104,7 @@ namespace Könyvtárak
             else
             {
                 File.Delete(path + "\\" + lboxKönyvtárList.SelectedItem.ToString());
+                UpdateListBox();
             }
             
         }
@@ -109,6 +112,42 @@ namespace Könyvtárak
         private void lboxKönyvtárList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (lboxKönyvtárList.SelectedIndex != -1) btnDelete.IsEnabled = true;
+        }
+
+        private void btnFileCreate_Click(object sender, RoutedEventArgs e)
+        {
+            if (!String.IsNullOrWhiteSpace(tbFileName.Text))
+            {
+                try
+                {
+                    StreamWriter sw = new StreamWriter($"{path}\\{tbFileName.Text}");
+                    sw.Close();
+                    MessageBox.Show("Létrejött a fájl.", "Infó", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                    var fileDest = $"{path}\\{tbFileName.Text}";
+                    string? dir = System.IO.Path.GetDirectoryName(fileDest);
+                    string fullName = System.IO.Path.GetFileName(fileDest);
+                    string fullNameNoExt = System.IO.Path.GetFileNameWithoutExtension(fileDest);
+                    string extension = System.IO.Path.GetExtension(fileDest);
+
+                    lblFileData.Content = $"File adatok: \n\t" +
+                        $"Könyvtár: {dir} \n\t" +
+                        $"Teljes név: {fullName} \n\t" +
+                        $"Kiterjesztés nélküli név: {fullNameNoExt} \n\t" +
+                        $"Kiterjesztés: {extension}";
+                    UpdateListBox();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Nem sikerült a fájl létrehozása! " + ex.Message, "Hiba", MessageBoxButton.OK, MessageBoxImage.Error);
+                    throw;
+                }
+               
+            }
+            else
+            {
+                MessageBox.Show("Nem sikerült a fájl létrehozása: nem adott meg nevet!", "Hiba", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
     }
 

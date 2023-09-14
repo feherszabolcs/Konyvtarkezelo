@@ -18,7 +18,7 @@
                 <Label Content="Új fálj neve:" VerticalContentAlignment="Center"/>
                 <TextBox Margin="5" Padding="5" x:Name="tbFileName"/>
             </DockPanel>
-            <Button x:Name="btnFileCreate" Content="Fájl létrehozása" Padding="3"/>
+            <Button x:Name="btnFileCreate" Content="Fájl létrehozása" Padding="3" Click="btnFileCreate_Click"/>
             <Label Name="lblFileData" Content=""/>
         </StackPanel>
 
