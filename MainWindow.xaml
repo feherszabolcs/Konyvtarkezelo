@@ -5,37 +5,67 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Könyvtárak"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Könyvtár kezelés" Height="460" Width="800" ResizeMode="CanMinimize">
     <Grid>
         <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="4*"/>
+            <ColumnDefinition Width="4*"/>
             <ColumnDefinition/>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
+            <ColumnDefinition Width="4*"/>
         </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
 
         <StackPanel Grid.Column="0">
             <DockPanel >
                 <Label Content="Új fálj neve:" VerticalContentAlignment="Center"/>
                 <TextBox Margin="5" Padding="5" x:Name="tbFileName"/>
             </DockPanel>
-            <Button x:Name="btnFileCreate" Content="Fájl létrehozása" Padding="3" Click="btnFileCreate_Click"/>
+            <Button x:Name="btnFileCreate" Content="Fájl létrehozása" Padding="3" Click="btnFileCreate_Click" Margin="5"/>
             <Label Name="lblFileData" Content=""/>
         </StackPanel>
 
         <StackPanel Grid.Column="1">
-            <Label Content="Könyvtárkezelés" Margin="5" FontWeight="Bold" HorizontalAlignment="Center"/>
-            <DockPanel>
+            <Label Content="Bal oldali kezelő" Margin="5" FontWeight="Bold" HorizontalAlignment="Center"/>
+            <DockPanel Margin="5">
                 <Label Content="Mappa neve:"/>
-                <TextBox x:Name="tbMappa"/>
+                <TextBox x:Name="tbMappaLeft" VerticalContentAlignment="Center"/>
             </DockPanel>
-            <Button x:Name="btnCreateMappa" Content="Mappa létrehozása" Margin="5" Padding="5" Click="btnCreateMappa_Click"/>
-            <Button x:Name="btnDelete" Content="Törlés" Margin="5" Padding="5" Click="btnDelete_Click" IsEnabled="False"/>
+            <Button x:Name="btnCreateMappaLeft" Content="Mappa létrehozása" Margin="5" Padding="5" Click="btnCreateMappaLeft_Click"/>
+            <!--<Button x:Name="btnDeleteLeft" Content="Törlés" Margin="5" Padding="5" Click="btnDeleteLeft_Click"/>-->
             <Separator Margin="5"/>
             <Label Content="Könyvtár lista"/>
-            <ListBox Name="lboxKönyvtárList" Margin="5" Height="150" SelectionChanged="lboxKönyvtárList_SelectionChanged"/>
-            <Button Content="Könytár megnyitása" Name="btnOpenKönyvtár" Margin="5" Padding="5" Click="btnOpenKönyvtár_Click"/>
-
+            <ListBox Name="lboxKönyvtárListLeft" Margin="5" Height="180"/>
+            <Button Content="Könytár megnyitása" Name="btnOpenKönyvtárLeft" Margin="5" Padding="5" Click="btnOpenKönyvtárLeft_Click"/>
         </StackPanel>
-        
+
+        <StackPanel Grid.Column="1" Grid.ColumnSpan="3" HorizontalAlignment="Center" >
+            <Label Content="Könytárkezelés" Margin="5" FontWeight="Bold"/>
+        </StackPanel>
+
+        <StackPanel Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="3" Margin="5" VerticalAlignment="Center">
+            <Button x:Name="btnDelete" Content="Mappa / Fájl törlése" Width="150" Height="30" Click="btnDelete_Click"/>
+        </StackPanel>
+
+        <StackPanel Grid.Column="2" VerticalAlignment="Center" Margin="0,30,0,0">
+            <Button Content=">" Name="btnToRight" Margin="5" Click="btnToRight_Click"/>
+            <Button Content="&lt;" Name="btnToLeft" Margin="5" Click="btnToLeft_Click"/>
+        </StackPanel>
+
+        <StackPanel Grid.Column="3">
+            <Label Content="Jobb oldali kezelő" Margin="5" FontWeight="Bold" HorizontalAlignment="Center"/>
+            <DockPanel Margin="5">
+                <Label Content="Mappa neve:"/>
+                <TextBox x:Name="tbMappaRight" VerticalContentAlignment="Center"/>
+            </DockPanel>
+            <Button x:Name="btnCreateMappaRight" Content="Mappa létrehozása" Margin="5" Padding="5" Click="btnCreateMappaRight_Click"/>
+            <Separator Margin="5"/>
+            <Label Content="Könyvtár lista"/>
+            <ListBox Name="lboxKönyvtárListRight" Margin="5" Height="180"/>
+            <Button Content="Könytár megnyitása" Name="btnOpenKönyvtárRight" Margin="5" Padding="5" Click="btnOpenKönyvtárRight_Click"/>
+        </StackPanel>
+
     </Grid>
 </Window>
