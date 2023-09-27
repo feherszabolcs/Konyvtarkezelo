@@ -85,30 +85,6 @@ namespace Könyvtárak
                 MessageBox.Show("Nem sikerült a mappa létrehozása: hibás név", "Hiba", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
-        private void btnDeleteLeft_Click(object sender, RoutedEventArgs e)
-        {
-            FileAttributes fAttr = File.GetAttributes(pathL + "\\" + lboxKönyvtárListLeft.SelectedItem.ToString());
-
-            if (fAttr.HasFlag(FileAttributes.Directory)) //Flag vizsgálat: Mappa-e?
-            {
-                try
-                {
-                    Directory.Delete(pathL + "\\" + lboxKönyvtárListLeft.SelectedItem.ToString());
-                    UpdateListBox(pathL, lboxKönyvtárListLeft);
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Nem sikerült a mappa törlése! " + ex.Message, "Hiba", MessageBoxButton.OK, MessageBoxImage.Error);
-                    throw;
-                }
-            }
-            else
-            {
-                File.Delete(pathL + "\\" + lboxKönyvtárListLeft.SelectedItem.ToString());
-                UpdateListBox(pathL, lboxKönyvtárListLeft);
-            }
-
-        }
         private void btnFileCreate_Click(object sender, RoutedEventArgs e)
         {
             if (!String.IsNullOrWhiteSpace(tbFileName.Text))
@@ -213,7 +189,7 @@ namespace Könyvtárak
                     UpdateListBox(pathR, lboxKönyvtárListRight);
                 }
             }
-            else
+            else if(lboxKönyvtárListRight.SelectedIndex > -1)
             {
                 FileAttributes fAttr = File.GetAttributes(pathR + "\\" + lboxKönyvtárListRight.SelectedItem.ToString());
 
@@ -238,6 +214,7 @@ namespace Könyvtárak
                 }
 
             }
+            
         }
 
         //copy files
@@ -321,6 +298,24 @@ namespace Könyvtárak
                 file.CopyTo(Path.Combine(dest.FullName, file.Name));
             }
 
+        }
+
+        private void lboxKönyvtárListLeft_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (lboxKönyvtárListLeft.SelectedIndex > -1)
+            {
+                btnDelete.IsEnabled = true;
+                lboxKönyvtárListRight.SelectedIndex = -1;
+            }
+        }
+
+        private void lboxKönyvtárListRight_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (lboxKönyvtárListRight.SelectedIndex > -1)
+            {
+                btnDelete.IsEnabled = true;
+                lboxKönyvtárListLeft.SelectedIndex = -1;
+            }
         }
     }
 }

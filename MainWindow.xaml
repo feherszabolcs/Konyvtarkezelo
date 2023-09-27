@@ -37,7 +37,7 @@
             <!--<Button x:Name="btnDeleteLeft" Content="Törlés" Margin="5" Padding="5" Click="btnDeleteLeft_Click"/>-->
             <Separator Margin="5"/>
             <Label Content="Könyvtár lista"/>
-            <ListBox Name="lboxKönyvtárListLeft" Margin="5" Height="180"/>
+            <ListBox Name="lboxKönyvtárListLeft" Margin="5" Height="180" SelectionChanged="lboxKönyvtárListLeft_SelectionChanged"/>
             <Button Content="Könytár megnyitása" Name="btnOpenKönyvtárLeft" Margin="5" Padding="5" Click="btnOpenKönyvtárLeft_Click"/>
         </StackPanel>
 
@@ -46,7 +46,7 @@
         </StackPanel>
 
         <StackPanel Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="3" Margin="5" VerticalAlignment="Center">
-            <Button x:Name="btnDelete" Content="Mappa / Fájl törlése" Width="150" Height="30" Click="btnDelete_Click"/>
+            <Button x:Name="btnDelete" Content="Mappa / Fájl törlése" Width="150" Height="30" Click="btnDelete_Click" IsEnabled="False"/>
         </StackPanel>
 
         <StackPanel Grid.Column="2" VerticalAlignment="Center" Margin="0,30,0,0">
@@ -63,7 +63,7 @@
             <Button x:Name="btnCreateMappaRight" Content="Mappa létrehozása" Margin="5" Padding="5" Click="btnCreateMappaRight_Click"/>
             <Separator Margin="5"/>
             <Label Content="Könyvtár lista"/>
-            <ListBox Name="lboxKönyvtárListRight" Margin="5" Height="180"/>
+            <ListBox Name="lboxKönyvtárListRight" Margin="5" Height="180" SelectionChanged="lboxKönyvtárListRight_SelectionChanged"/>
             <Button Content="Könytár megnyitása" Name="btnOpenKönyvtárRight" Margin="5" Padding="5" Click="btnOpenKönyvtárRight_Click"/>
         </StackPanel>
 
